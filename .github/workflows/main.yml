@@ -7,7 +7,10 @@ jobs:
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v2
-    
+    - name: 🔨 Build Project
+      run:
+        npm install
+        npm run build
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
@@ -15,3 +18,4 @@ jobs:
         username: Dev-MedPocket
         password: ${{ secrets.ftp_password }}
         server-dir: myadmin.medpocket.in/
+        local-dir: ./build/
