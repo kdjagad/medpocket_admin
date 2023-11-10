@@ -1,6 +1,10 @@
 import axios from 'axios'
 
-export const api_url = 'http://192.168.0.101:5006/api/v1'
+export const api_url = 'https://prod-api.medpocket.in/api/v1'
+// export const api_url =
+//   process.env.NODE_ENV == 'development'
+//     ? 'http://localhost:5000/api/v1'
+//     : 'https://prod-api.medpocket.in/api/v1'
 
 const api = axios.create({
   baseURL: api_url,

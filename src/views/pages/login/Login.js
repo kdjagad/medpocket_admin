@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   CButton,
@@ -33,6 +33,13 @@ const Login = () => {
       navigate('/users')
     }
   }
+  const checkLogin = async () => {
+    const token = await sessionStorage.getItem('token')
+    if (token) navigate('/users')
+  }
+  useEffect(() => {
+    checkLogin()
+  }, [])
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
