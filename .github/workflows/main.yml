@@ -5,12 +5,32 @@ jobs:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: 🚚 Get latest code
+    # checkout the repository content to github runner
+    - name: Checkout
       uses: actions/checkout@v2
-    - name: 🔨 Build Project
-      run:
-        npm install --force
-        npm run build
+
+    # setup nodejs environment
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v2.1.5
+      with:
+        node-version: "18.16.1"
+
+    # cache the dependencies to speed up the build
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    # install dependencies
+    - name: Install dependencies
+      run: npm i --force
+
+    # build the react app
+    - name: Build
+      run: npm run build
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
@@ -18,4 +38,4 @@ jobs:
         username: Dev-MedPocket
         password: ${{ secrets.ftp_password }}
         server-dir: myadmin.medpocket.in/
-        local-dir: ./build/
+        local-dir: ./build
