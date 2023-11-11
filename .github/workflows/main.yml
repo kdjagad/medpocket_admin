@@ -38,4 +38,4 @@ jobs:
         username: Dev-MedPocket
         password: ${{ secrets.ftp_password }}
         server-dir: myadmin.medpocket.in/
-        local-dir: ./build
+        local-dir: ./build/
