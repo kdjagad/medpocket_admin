@@ -1,24 +1,19 @@
 import * as React from 'react'
 import Box from '@mui/material/Box'
-import { DataGrid } from '@mui/x-data-grid'
+import { DataGrid, GridToolbar } from '@mui/x-data-grid'
 import api from 'src/api'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { Switch } from '@mui/material'
 import QRCode from 'react-qr-code'
 import { CButton, CContainer } from '@coreui/react'
 
 const Keys = ({ onlyStockiest = false }) => {
+  const { id = null } = useParams()
   const [data, setData] = React.useState([])
   const getKeys = async () => {
-    const res = await api.get(`/admin/keys`)
+    const res = await api.get(`/admin/keys/${id}`)
     console.log('res', res)
     setData([...res.data.data])
-  }
-
-  const generateKeys = async (number) => {
-    const res = await api.get(`/licences/${number}`)
-    console.log('res', res)
-    getKeys()
   }
 
   React.useEffect(() => {
@@ -62,18 +57,8 @@ const Keys = ({ onlyStockiest = false }) => {
     },
   ]
 
-  const askGenerateKeys = () => {
-    var number = window.prompt('Enter count number how many keys you want to generate')
-    generateKeys(number)
-  }
-
   return (
     <Box sx={{ width: '100%' }}>
-      <div className="d-flex align-items-center justify-content-end">
-        <CButton className="btn btn-sm btn-primary" onClick={askGenerateKeys}>
-          Generate Keys
-        </CButton>
-      </div>
       <DataGrid
         rows={data}
         columns={columns}
@@ -88,6 +73,7 @@ const Keys = ({ onlyStockiest = false }) => {
         // checkboxSelection
         disableRowSelectionOnClick
         rowHeight={230}
+        slots={{ toolbar: GridToolbar }}
       />
     </Box>
   )

@@ -16,14 +16,14 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import axios from 'axios'
-import { api_url } from 'src/api'
+import api from 'src/api'
 
 const Login = () => {
   const navigate = useNavigate()
   const onsubmit = async (e) => {
     e.preventDefault()
     const fd = new FormData(e.target)
-    const res = await axios.post(`${api_url}/admin/login`, {
+    const res = await api.post(`/admin/login`, {
       username: fd.get('username'),
       password: fd.get('password'),
     })

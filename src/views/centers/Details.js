@@ -12,7 +12,7 @@ import {
 import { Box } from '@mui/material'
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import api, { api_url } from 'src/api'
+import api from 'src/api'
 import { AppFileUpload, AppInput } from 'src/components'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import Editor from 'ckeditor5-custom-build/build/ckeditor'
@@ -32,13 +32,13 @@ function CenterDetails(props) {
     fd.forEach((value, key) => (object[key] = value))
     var res = null
     if (id > 0) {
-      res = await api.put(`${api_url}/admin/centers/${id}`, object, {
+      res = await api.put(`/admin/centers/${id}`, object, {
         headers: {
           'content-type': 'multipart/form-data',
         },
       })
     } else {
-      res = await api.post(`${api_url}/admin/centers`, object, {
+      res = await api.post(`/admin/centers`, object, {
         headers: {
           'content-type': 'multipart/form-data',
         },

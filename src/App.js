@@ -2,6 +2,7 @@ import React, { Component, Suspense, useEffect } from 'react'
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
 import './scss/style.scss'
 import ProtectedRoute from './protectedRoute'
+import { Toaster } from 'react-hot-toast'
 
 const loading = (
   <div className="pt-3 text-center">
@@ -20,6 +21,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
+        <Toaster position="bottom-center" />
         <Suspense fallback={loading}>
           <Routes>
             <Route exact path="/login" name="Login Page" element={<Login />} />

@@ -15,7 +15,7 @@ import { Box } from '@mui/material'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from 'src/api'
-function AddNews(props) {
+function AddBatch(props) {
   const [centers, setCenters] = useState([])
   const navigate = useNavigate()
   const onsubmit = async (e) => {
@@ -23,65 +23,52 @@ function AddNews(props) {
     const fd = new FormData(e.target)
     var object = {}
     fd.forEach((value, key) => (object[key] = value))
-    const res = await api.post(`/admin/news/add`, object, {
-      headers: {
-        'content-type': 'multipart/form-data',
-      },
-    })
-    console.log('res news', res)
+    const res = await api.post(`/admin/keys-batch`, object)
+    console.log('res batches', res)
     if (res.status == 200) {
-      navigate('/news')
+      navigate('/keys')
     }
   }
-  const getCenters = async () => {
-    const res = await api.get(`/admin/centers`)
-    console.log('res', res)
-    const newArr = [{ label: 'All', value: 'All' }]
-    let { data = [] } = res.data
-    data.map((dt) => newArr.push({ label: dt.center, value: dt.center }))
-    setCenters([...newArr])
-  }
-
-  React.useEffect(() => {
-    getCenters()
-  }, [])
   return (
     <Box sx={{ width: '100%' }}>
       <CForm onSubmit={onsubmit} encType="multipart/form-data">
-        <h1>Add News</h1>
+        <h1>Add Keys Batch</h1>
         <CInputGroup className="mb-3">
           <CInputGroupText>
             <CIcon icon={cilUser} />
           </CInputGroupText>
-          <CFormInput placeholder="Header" autoComplete="messageHeader" name="messageHeader" />
+          <CFormInput placeholder="Batch Name" name="batch_name" required="required" />
         </CInputGroup>
         <CInputGroup className="mb-3">
           <CInputGroupText>
             <CIcon icon={cilUser} />
-          </CInputGroupText>
-          <CFormTextarea placeholder="Details" autoComplete="messageDetail" name="messageDetail" />
-        </CInputGroup>
-        <CInputGroup className="mb-3">
-          <CInputGroupText>
-            <CIcon icon={cilUser} />
-          </CInputGroupText>
-          <CFormSelect placeholder="Select Center" name="center" options={centers} />
-        </CInputGroup>
-        <CInputGroup className="mb-3">
-          <CInputGroupText>
-            <CIcon icon={cilCloudUpload} />
           </CInputGroupText>
           <CFormInput
-            placeholder="Select Attachments"
-            type="file"
-            multiple={true}
-            name="attachments"
+            type="number"
+            placeholder="No. of keys you want to generate"
+            name="number_of_keys"
+            required="required"
           />
         </CInputGroup>
+        <CInputGroup className="mb-3">
+          <CInputGroupText>
+            <CIcon icon={cilUser} />
+          </CInputGroupText>
+          <CFormSelect
+            placeholder="Select Print Status"
+            name="printed_status"
+            required="required"
+            options={[
+              { label: 'Not Printed', value: 0 },
+              { label: 'Printed', value: 1 },
+            ]}
+          />
+        </CInputGroup>
+
         <CRow>
           <CCol xs={6}>
             <CButton type="submit" color="primary" className="px-4">
-              Add
+              Generate
             </CButton>
           </CCol>
           <CCol xs={6} className="text-right"></CCol>
@@ -91,4 +78,4 @@ function AddNews(props) {
   )
 }
 
-export default AddNews
+export default AddBatch
