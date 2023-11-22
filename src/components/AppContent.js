@@ -1,6 +1,6 @@
-import React, { Suspense, useEffect, useState } from 'react'
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import { CContainer, CSpinner } from '@coreui/react'
+import React, { Suspense } from 'react'
+import { Route, Routes } from 'react-router-dom'
 
 // routes config
 import routes from '../routes'
@@ -18,6 +18,7 @@ const AppContent = () => {
                   path={route.path}
                   exact={route.exact}
                   name={route.name}
+                  title={`${route.name} | Medpocket Admin` || 'Medpocket Admin'}
                   element={<route.element />}
                 />
               )

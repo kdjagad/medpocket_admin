@@ -1,8 +1,8 @@
-import React, { Component, Suspense, useEffect } from 'react'
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
-import './scss/style.scss'
-import ProtectedRoute from './protectedRoute'
+import React, { Component, Suspense } from 'react'
 import { Toaster } from 'react-hot-toast'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import ProtectedRoute from './protectedRoute'
+import './scss/style.scss'
 
 const loading = (
   <div className="pt-3 text-center">
@@ -24,9 +24,22 @@ class App extends Component {
         <Toaster position="bottom-center" />
         <Suspense fallback={loading}>
           <Routes>
-            <Route exact path="/login" name="Login Page" element={<Login />} />
-            <Route exact path="/404" name="Page 404" element={<Page404 />} />
             <Route
+              exact
+              path="/login"
+              name="Login Page"
+              element={<Login />}
+              title={`Login | Medpocket Admin`}
+            />
+            <Route
+              exact
+              path="/404"
+              name="Page 404"
+              element={<Page404 />}
+              title={`Not Found | Medpocket Admin`}
+            />
+            <Route
+              title={`Dashboard | Medpocket Admin`}
               path="*"
               name="Dashboard"
               element={

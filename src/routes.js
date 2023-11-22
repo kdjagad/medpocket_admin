@@ -1,15 +1,14 @@
-import React from 'react'
-import Users from './views/users/Users'
-import UserDetail from './views/users/UserDetail'
-import News from './views/news/News'
-import AddNews from './views/news/AddNews'
 import Centers from './views/centers/Centers'
 import CenterDetails from './views/centers/Details'
-import StockiestRequest from './views/users/StockiestRequest'
-import UploadFile from './views/upload'
-import KeysBatch from './views/keys/Batches'
 import AddBatch from './views/keys/AddBatch'
+import KeysBatch from './views/keys/Batches'
 import Keys from './views/keys/Keys'
+import AddNews from './views/news/AddNews'
+import News from './views/news/News'
+import UploadFile from './views/upload'
+import StockiestRequest from './views/users/StockiestRequest'
+import UserDetail from './views/users/UserDetail'
+import Users from './views/users/Users'
 
 // const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 
