@@ -1,4 +1,4 @@
-import { cilCloudUpload, cilUser } from '@coreui/icons'
+import { cilUser } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import {
   CButton,
@@ -6,17 +6,16 @@ import {
   CForm,
   CFormInput,
   CFormSelect,
-  CFormTextarea,
   CInputGroup,
   CInputGroupText,
   CRow,
 } from '@coreui/react'
 import { Box } from '@mui/material'
-import React, { useState } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from 'src/api'
 function AddBatch(props) {
-  const [centers, setCenters] = useState([])
+  const [centers, setCenters] = React.useState([])
   const navigate = useNavigate()
   const onsubmit = async (e) => {
     e.preventDefault()
