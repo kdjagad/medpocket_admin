@@ -1,11 +1,9 @@
-import * as React from 'react'
+import { CButton } from '@coreui/react'
 import Box from '@mui/material/Box'
 import { DataGrid } from '@mui/x-data-grid'
-import api from 'src/api'
+import * as React from 'react'
 import { NavLink } from 'react-router-dom'
-import { Modal, Switch } from '@mui/material'
-import QRCode from 'react-qr-code'
-import { CButton, CContainer } from '@coreui/react'
+import api from 'src/api'
 
 const KeysBatch = ({ onlyStockiest = false }) => {
   const [data, setData] = React.useState([])
@@ -111,7 +109,7 @@ const KeysBatch = ({ onlyStockiest = false }) => {
   const askGenerateKeysBatch = () => {
     // var number = window.prompt('Enter count number how many keys you want to generate')
     // generateKeysBatch(number)
-    window.location.href = '/keys/add'
+    window.location.href = '/keys-add'
   }
 
   return (
