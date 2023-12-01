@@ -1,9 +1,10 @@
 import { CButton, CContainer, CForm, CFormInput, CFormLabel } from '@coreui/react'
-import React, { useEffect, useState } from 'react'
+import { DataGrid } from '@mui/x-data-grid'
+import { useEffect, useState } from 'react'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
-import { useParams } from 'react-router-dom'
-import api from 'src/api'
 import 'react-notifications/lib/notifications.css'
+import { NavLink, useParams } from 'react-router-dom'
+import api, { baseURL } from 'src/api'
 
 const UserDetail = (props) => {
   const [user, setUser] = useState(null)
@@ -38,6 +39,51 @@ const UserDetail = (props) => {
     e.preventDefault()
     updateUser(userId)
   }
+
+  const columnsStockiests = [
+    { field: 'id', headerName: 'ID', width: 100 },
+    { flex: 1, field: 'firm_name', headerName: 'Firm Name' },
+    { flex: 1, field: 'phone', headerName: 'Phone' },
+    { flex: 1, field: 'center', headerName: 'Center' },
+    {
+      flex: 1,
+      field: 'attachment',
+      headerName: 'Attachment',
+      renderCell: ({ row }) => {
+        return (
+          <NavLink
+            className={'btn btn-primary btn-sm'}
+            target="_blank"
+            download={'Attachment'}
+            to={`${baseURL}/${row['attachment']}`}
+          >
+            View
+          </NavLink>
+        )
+      },
+    },
+  ]
+
+  const columnsProducts = [
+    { field: 'id', headerName: 'ID', width: 100 },
+    {
+      flex: 1,
+      field: 'attachment',
+      headerName: 'Attachment',
+      renderCell: ({ row }) => {
+        return (
+          <NavLink
+            className={'btn btn-primary btn-sm'}
+            target="_blank"
+            download={'Attachment'}
+            to={`${baseURL}/${row['attachment']}`}
+          >
+            View
+          </NavLink>
+        )
+      },
+    },
+  ]
 
   console.log('user', user)
   if (!user) return null
@@ -120,6 +166,50 @@ const UserDetail = (props) => {
           </div>
           <NotificationContainer />
         </CForm>
+      </div>
+      <div className="row mt-5">
+        <div className="col-sm-6">
+          <div className="card">
+            <div className="card-header">Uploaded Stockiest</div>
+            <div className="card-body">
+              <DataGrid
+                rows={user?.uploaded_stockiests || []}
+                columns={columnsStockiests}
+                initialState={{
+                  pagination: {
+                    paginationModel: {
+                      pageSize: 100,
+                    },
+                  },
+                }}
+                pageSizeOptions={[10]}
+                // checkboxSelection
+                disableRowSelectionOnClick
+              />
+            </div>
+          </div>
+        </div>
+        <div className="col-sm-6">
+          <div className="card">
+            <div className="card-header">Uploaded Products</div>
+            <div className="card-body">
+              <DataGrid
+                rows={user?.uploaded_products || []}
+                columns={columnsProducts}
+                initialState={{
+                  pagination: {
+                    paginationModel: {
+                      pageSize: 100,
+                    },
+                  },
+                }}
+                pageSizeOptions={[10]}
+                // checkboxSelection
+                disableRowSelectionOnClick
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </CContainer>
   )
