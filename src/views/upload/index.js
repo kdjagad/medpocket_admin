@@ -76,7 +76,7 @@ function UploadFile(props) {
     // }
 
     axios({
-      url: `${baseURL}/admin/${path}`, //your url
+      url: `${baseURL}/api/v1/admin/${path}`, //your url
       method: 'GET',
       responseType: 'blob', // important
     }).then((response) => {

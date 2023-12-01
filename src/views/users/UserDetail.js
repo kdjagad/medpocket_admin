@@ -41,10 +41,18 @@ const UserDetail = (props) => {
   }
 
   const columnsStockiests = [
-    { field: 'id', headerName: 'ID', width: 100 },
+    { field: 'id', headerName: 'ID', width: 50 },
     { flex: 1, field: 'firm_name', headerName: 'Firm Name' },
     { flex: 1, field: 'phone', headerName: 'Phone' },
     { flex: 1, field: 'center', headerName: 'Center' },
+    {
+      flex: 1,
+      field: 'filename',
+      headerName: 'Document',
+      renderCell: ({ row }) => {
+        return <p>{row['attachment'].split('\\').pop()}</p>
+      },
+    },
     {
       flex: 1,
       field: 'attachment',
@@ -65,7 +73,15 @@ const UserDetail = (props) => {
   ]
 
   const columnsProducts = [
-    { field: 'id', headerName: 'ID', width: 100 },
+    { field: 'id', headerName: 'ID', width: 50 },
+    {
+      flex: 1,
+      field: 'filename',
+      headerName: 'Document',
+      renderCell: ({ row }) => {
+        return <p>{row['attachment'].split('\\').pop()}</p>
+      },
+    },
     {
       flex: 1,
       field: 'attachment',
